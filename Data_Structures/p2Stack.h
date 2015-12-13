@@ -6,6 +6,7 @@
 #define __p2Stack_H__
 
 #include "p2Defs.h"
+#include "p2DynArray.h"
 
 /**
 * Stack using a dynamic array

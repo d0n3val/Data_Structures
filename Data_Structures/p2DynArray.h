@@ -179,6 +179,17 @@ public:
 		}
 	}
 
+	uint find(const TYPE& value)
+	{
+		uint i = 0;
+		for(; i < num_elements; ++i)
+		{
+			if(data[i] == value)
+				break;
+		}
+		return i;
+	}
+
 	// Utils ------------------------------------------------------------
 	uint capacity() const
 	{

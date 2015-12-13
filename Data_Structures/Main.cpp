@@ -177,15 +177,17 @@ int main()
 		printf("Testing Graph ...\n");
 		p2Graph<int> container;
 		TEST("Empty", container.empty() == true);
-		p2Graph<int>::node* node_1 = container.push_back(1);
-		p2Graph<int>::node* node_2 = container.push_back(2);
-		p2Graph<int>::node* node_3 = container.push_back(3);
+		p2Graph<int>::vertice* vertice_1 = container.push_back(1);
+		p2Graph<int>::vertice* vertice_2 = container.push_back(2);
+		p2Graph<int>::vertice* vertice_3 = container.push_back(3);
 		TEST("Push Back", container.size() == 3);
-		node_1->links.push_back(node_2);
-		node_2->links.push_back(node_3);
-		node_3->links.push_back(node_2);
+		vertice_1->links.push_back(vertice_2);
+		vertice_2->links.push_back(vertice_3);
+		vertice_3->links.push_back(vertice_3); // loop
+		vertice_3->links.push_back(vertice_2);
 		TEST("Push Back", container.size() == 3);
-		TEST("is_reachable", container.is_reachable(node_1, node_3) == true);
+		TEST("is_reachable A", container.is_reachable(vertice_1, vertice_3) == true);
+		TEST("is_reachable B", container.is_reachable(vertice_3, vertice_1) == false);
 		container.clear();
 		TEST("Clear", container.size() == 0);
 	}
