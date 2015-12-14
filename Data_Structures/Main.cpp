@@ -186,8 +186,10 @@ int main()
 		vertice_3->links.push_back(vertice_3); // loop
 		vertice_3->links.push_back(vertice_2);
 		TEST("Push Back", container.size() == 3);
-		TEST("is_reachable A", container.is_reachable(vertice_1, vertice_3) == true);
-		TEST("is_reachable B", container.is_reachable(vertice_3, vertice_1) == false);
+		TEST("is_reachable_iterative A", container.is_reachable_iterative(vertice_1, vertice_3) == true);
+		TEST("is_reachable_iterative B", container.is_reachable_iterative(vertice_3, vertice_1) == false);
+		TEST("is_reachable_recursive A", container.is_reachable_recursive(vertice_1, vertice_3) == true);
+		TEST("is_reachable_recursive B", container.is_reachable_recursive(vertice_3, vertice_1) == false);
 		container.clear();
 		TEST("Clear", container.size() == 0);
 	}

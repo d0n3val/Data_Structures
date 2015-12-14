@@ -25,6 +25,29 @@ public:
 
 		vertice(const TYPE& data) : data(data)
 		{}
+
+		bool CanReach(const vertice* dst, p2DynArray<const vertice*>& visited) const
+		{
+			// Are we the destination ?
+			if(this == dst)
+				return true;
+
+			// Add ourselves as a visited node so we never come back here
+			visited.push_back(this);
+
+			// Recursively call all our links that have not been visited
+			for(const p2List<vertice*>::node* item = links.front_node(); item; item = item->next())
+			{
+				if(visited.find(item->data) == visited.size())
+				{
+					if(item->data->CanReach(dst, visited) == true)
+						return true;
+				}
+			}
+
+			// We could not find destination in this branch
+			return false;
+		}
 	};
 
 private:
@@ -40,16 +63,16 @@ public:
 		return new_vertice;
 	}
 
-	bool is_reachable(vertice* src, vertice* dst) const
+	bool is_reachable_iterative(const vertice* src, const vertice* dst) const
 	{
 		if(src == dst)
 			return true;
 
 		// Keep track of visited nodes
-		p2DynArray<vertice*> visited(size());
+		p2DynArray<const vertice*> visited(size());
 
 		// queue to organize node visiting
-		p2Queue<vertice*> queue;
+		p2Queue<const vertice*> queue;
 
 		// Add first node as visited
 		visited.push_back(src);
@@ -57,7 +80,7 @@ public:
 		// Add first node as the one to begin with
 		queue.push(src);
 
-		vertice* current;
+		const vertice* current;
 		while(queue.pop(current) == true)
 		{
 			// Iterate all links
@@ -81,6 +104,18 @@ public:
 		return false;
 	}
 
+	bool is_reachable_recursive(const vertice* src, const vertice* dst) const
+	{
+		if(src == dst)
+			return true;
+
+		// Keep track of visited nodes
+		p2DynArray<const vertice*> visited(size());
+
+		// trigger the recursive function
+		return src->CanReach(dst, visited);
+	}
+
 	unsigned int size() const
 	{
 		return vertices.size();
@@ -101,6 +136,7 @@ public:
 	{
 		return vertices.empty();
 	}
+
 };
 
 #endif // __p2Graph_H__
