@@ -106,9 +106,6 @@ public:
 
 	bool is_reachable_recursive(const vertice* src, const vertice* dst) const
 	{
-		if(src == dst)
-			return true;
-
 		// Keep track of visited nodes
 		p2DynArray<const vertice*> visited(size());
 
