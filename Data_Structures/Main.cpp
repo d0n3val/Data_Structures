@@ -1,4 +1,5 @@
 #include "p2Defs.h"
+#include "SimpleUnitTest.h"
 #include "p2DynArray.h"
 #include "p2SList.h"
 #include "p2List.h"
@@ -9,11 +10,6 @@
 #include "p2Stack2.h"
 #include "p2String.h"
 #include "p2Graph.h"
-
-uint done = 0;
-uint failed = 0;
-
-#define TEST(msg, test) done++; printf("\t%s\t%s\n", !(##test) ? failed++,"FAIL" : "OK", msg)
 
 int main()
 {
@@ -194,7 +190,7 @@ int main()
 		TEST("Clear", container.size() == 0);
 	}
 
-	printf("\nFailures: %d/%d", failed, done);
+	PRINT_TEST_REPORT();
 
 	getchar();
 	return 0;
